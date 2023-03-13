@@ -7,13 +7,13 @@
 
 #include "globals.h"
 
-const void setDspMidiPitch(const uint8_t ch, const Mode mode, const uint8_t pitch);
-const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t value);
-const void setDspMute(const uint8_t kb, const uint8_t voice, const bool state);
-const void setDspCaveFreq(const uint8_t kb, const uint8_t voice, const int freq);
-const void setDspA3Freq(const float a3_freq);
-const void setDspMix(const float mix);
-const void setDspDecay(const float decay);
-const void setDspVolume(const float vol);
+void setDspMidiPitch(uint8_t ch, Mode mode, uint8_t pitch);
+void setDspMidiParam(uint8_t ch, uint8_t number, uint8_t value);
+void setDspMute(uint8_t kb, uint8_t voice, bool state);
+void setDspCaveFreq(uint8_t kb, uint8_t voice, int freq);
+void setDspA3Freq(float a3_freq);
+void setDspMix(float mix);
+void setDspDecay(float decay);
+void setDspVolume(float vol);
 
 #endif // TEENGIE2_DSP_H

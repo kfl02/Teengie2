@@ -47,7 +47,7 @@
 
 #include <cmath>
 
-const float fscale(const float original_min, 
+float fscale(const float original_min,
                    const float original_max,
                    const float new_begin,
                    const float new_end,
@@ -73,8 +73,8 @@ const float fscale(const float original_min,
         clipped_curve = -10;
     }
 
-    clipped_curve = (clipped_curve * -.1);  // - invert and scale - this seems more intuitive - postive numbers give more weight to high end on output
-    clipped_curve = pow(10, clipped_curve); // convert linear scale into lograthimic exponent for other pow function
+    clipped_curve = (clipped_curve * -.1f);  // - invert and scale - this seems more intuitive - postive numbers give more weight to high end on output
+    clipped_curve = powf(10, clipped_curve); // convert linear scale into lograthimic exponent for other pow function
 
     // Check for out of range inputValues
     if (clipped_input_value < original_min) {
@@ -104,10 +104,10 @@ const float fscale(const float original_min,
     }
 
     if (inv_flag == 0) {
-        ranged_value = (pow(normalized_cur_val, clipped_curve) * new_range) + new_begin;
+        ranged_value = (powf(normalized_cur_val, clipped_curve) * new_range) + new_begin;
 
     } else { // invert the ranges
-        ranged_value = new_begin - (pow(normalized_cur_val, clipped_curve) * new_range);
+        ranged_value = new_begin - (powf(normalized_cur_val, clipped_curve) * new_range);
     }
 
     return ranged_value;

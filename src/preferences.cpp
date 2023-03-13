@@ -45,7 +45,7 @@ const TeengiePreferences default_prefs = {
 
 TeengiePreferences prefs;
 
-const bool TeengiePreferences::isInitialized() {
+bool TeengiePreferences::isInitialized() {
     return init == teengie_preferences_init_magic;
 }
 

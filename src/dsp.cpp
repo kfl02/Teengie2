@@ -14,7 +14,7 @@ static constexpr auto CC_MIX = 11;
 static constexpr auto CC_DECAY = 1;
 static constexpr auto CC_VOL = 7;
 
-const void setDspMidiPitch(const uint8_t ch, const Mode mode, const uint8_t pitch) {
+void setDspMidiPitch(const uint8_t ch, const Mode mode, const uint8_t pitch) {
     switch(mode) {
       case STRING_MODE:
       case BAR_MODE:
@@ -27,6 +27,7 @@ const void setDspMidiPitch(const uint8_t ch, const Mode mode, const uint8_t pitc
 
       case POLY_MODE:
         switch(current_poly[ch]) {
+          default:
           case 0:
             current_poly[ch] = 1;
 
@@ -64,13 +65,13 @@ const void setDspMidiPitch(const uint8_t ch, const Mode mode, const uint8_t pitc
     }
 }
 
-const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t value) {
+void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t value) {
     switch(number) {
       case CC_MODE: {
-            Mode modeFromMidi = (value >> 5);
+            Mode mode_from_midi = static_cast<Mode>(value >> 5);
 
-            if(mode[ch] != modeFromMidi) {
-                mode[ch] = modeFromMidi;
+            if(mode[ch] != mode_from_midi) {
+                mode[ch] = mode_from_midi;
                 mode_change_from_midi[ch] = true;
             }
         }
@@ -82,7 +83,7 @@ const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t
             midi_val[ch][MIX][MSB] = value;
 
             int midi_val_14_bit = (midi_val[ch][MIX][MSB] << 7) | midi_val[ch][MIX][LSB];
-            float v = midi_val_14_bit / 16383.0f;
+            float v = (float)midi_val_14_bit / 16383.0f;
 
             if(ch == LEFT) {
                 wingie2_1.setParamValue("mix0", v);
@@ -104,7 +105,7 @@ const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t
             midi_val[ch][DECAY][MSB] = value;
 
             int midi_val_14_bit = (midi_val[ch][DECAY][MSB] << 7) | midi_val[ch][DECAY][LSB];
-            float v = (midi_val_14_bit / 16383.0f) * 9.9f + 0.1f;
+            float v = ((float)midi_val_14_bit / 16383.0f) * 9.9f + 0.1f;
 
             v = fscale(0.1f, 10.0f, 0.1f, 10.0f, v, -3.25f);
 
@@ -130,7 +131,7 @@ const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t
             midi_val[ch][VOL][MSB] = value;
 
             int midi_val_14_bit = (midi_val[ch][VOL][MSB] << 7) | midi_val[ch][VOL][LSB];
-            float v = midi_val_14_bit / 16383.0f;
+            float v = (float)midi_val_14_bit / 16383.0f;
 
             if(ch == LEFT) {
                 wingie2_1.setParamValue("volume0", v);
@@ -151,7 +152,7 @@ const void setDspMidiParam(const uint8_t ch, const uint8_t number, const uint8_t
     }
 }
 
-const void setDspMute(const uint8_t kb, const uint8_t voice, const bool state) {
+void setDspMute(const uint8_t kb, const uint8_t voice, const bool state) {
     char buff[100];
 
     if(kb == LEFT) {
@@ -165,7 +166,7 @@ const void setDspMute(const uint8_t kb, const uint8_t voice, const bool state) {
     wingie2_1.setParamValue(str, state);
 }
 
-const void setDspCaveFreq(const uint8_t kb, const uint8_t voice, const int freq) {
+void setDspCaveFreq(const uint8_t kb, const uint8_t voice, const int freq) {
     char buff[100];
 
     if(kb == LEFT) {
@@ -179,22 +180,22 @@ const void setDspCaveFreq(const uint8_t kb, const uint8_t voice, const int freq)
     wingie2_1.setParamValue(str, freq);
 }
 
-const void setDspA3Freq(const float a3_freq) {
+void setDspA3Freq(const float a3_freq) {
     wingie2_1.setParamValue("/Wingie/left/a3_freq", a3_freq);
     wingie2_1.setParamValue("/Wingie/right/a3_freq", a3_freq);
 }
 
-const void setDspMix(const float mix) {
+void setDspMix(const float mix) {
     wingie2_1.setParamValue("mix0", mix);
     wingie2_1.setParamValue("mix1", mix);
 }
 
-const void setDspDecay(const float decay) {
+void setDspDecay(const float decay) {
     wingie2_1.setParamValue("/Wingie/left/decay", decay);
     wingie2_1.setParamValue("/Wingie/left/decay", decay);
 }
 
-const void setDspVolume(const float vol) {
+void setDspVolume(const float vol) {
     wingie2_1.setParamValue("volume0", vol);
     wingie2_1.setParamValue("volume1", vol);
 }

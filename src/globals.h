@@ -3,6 +3,8 @@
 #ifndef TEENGIE2_GLOBALS_H
 #define TEENGIE2_GLOBALS_H
 
+#include <cstdint>
+
 enum Mode {
     POLY_MODE,
     STRING_MODE,
@@ -38,7 +40,7 @@ constexpr auto SLIDER_MOVEMENT_DETECT = 256;
 
 // Teensy pins
 
-constexpr int pot_pins[POTS] = { 14, 15, 16 };
+constexpr uint8_t pot_pins[POTS] = { 14, 15, 16 };
 
 // values
 

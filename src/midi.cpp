@@ -86,7 +86,7 @@ void handleControlChange(uint8_t channel, uint8_t number, uint8_t value) {
                 a3_freq_midi_value[MSB] = value;
 
                 int midi_value_14bit = (a3_freq_midi_value[MSB] << 7) | a3_freq_midi_value[LSB];
-                float freq_offset = midi_value_14bit / 100.0f - 81.92f;
+                float freq_offset = (float)midi_value_14bit / 100.0f - 81.92f;
 
                 a3_freq = 440.0f + freq_offset;
                 prefs.a3_freq_offset = freq_offset;

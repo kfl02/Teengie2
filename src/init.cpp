@@ -1,3 +1,3 @@
-const void init() {
+void init() {
     
 }

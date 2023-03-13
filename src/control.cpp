@@ -20,13 +20,13 @@ const void control() {
         }
     }
 
-    float mix = pot_val_realtime[MIX] / 4095.0f;
+    float mix = (float)pot_val_realtime[MIX] / 4095.0f;
 
     if(realtime_value_valid[MIX]) {
         setDspMix(mix);
     }
 
-    float decay = (pot_val_realtime[DECAY] / 4095.0f) * 9.9f + 0.1f;
+    float decay = ((float)pot_val_realtime[DECAY] / 4095.0f) * 9.9f + 0.1f;
 
     decay = fscale(0.1, 10., 0.1, 10., decay, -3.25);
 
@@ -34,7 +34,7 @@ const void control() {
         setDspDecay(decay);
     }
 
-    float vol = pot_val_realtime[VOL] / 4095.0f;
+    float vol = (float)pot_val_realtime[VOL] / 4095.0f;
 
     if(realtime_value_valid[VOL]) {
         setDspVolume(vol);

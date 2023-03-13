@@ -22,7 +22,7 @@ struct TeengiePreferences {
     uint16_t cm_freq[CHANNELS][CAVES][VOICES];
     uint8_t cm_ms[CHANNELS][CAVES][VOICES];
 
-    const bool isInitialized();
+    bool isInitialized();
 };
 
 bool operator==(const TeengiePreferences &lhs, const TeengiePreferences &rhs);
